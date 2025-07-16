@@ -1,26 +1,42 @@
-name: Sync to ACR
+name: Incremental sync to ACR
 on:
   push:
     paths: ['images.txt']
-  workflow_dispatch:   # 手动触发
+  workflow_dispatch:
+
+env:
+  REGISTRY: ${{ secrets.ACR_REGISTRY }}
+  NAMESPACE: shanhy   # 改成你的命名空间
+
 jobs:
   sync:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - name: Login to ACR
         uses: docker/login-action@v3
         with:
-          registry: ${{ secrets.ACR_REGISTRY }}
+          registry: ${{ env.REGISTRY }}
           username: ${{ secrets.ACR_USERNAME }}
           password: ${{ secrets.ACR_PASSWORD }}
+
       - name: Install skopeo
         run: sudo apt-get update && sudo apt-get install -y skopeo
-      - name: Sync images
+
+      - name: Incremental sync
         run: |
-          while read -r img; do
-            [ -z "$img" ] && continue
-            echo ">>> syncing $img"
-            skopeo copy docker://$img \
-              docker://${{ secrets.ACR_REGISTRY }}/shanhy/${img#*/}
+          while read -r src; do
+            [ -z "$src" ] && continue
+            dst="${REGISTRY}/${NAMESPACE}/${src#*/}"  # 目标镜像
+            echo ">>> 检查 ${dst} …"
+            # 查询远端是否存在该 tag
+            if skopeo inspect --retry-times=3 "docker://${dst}" >/dev/null 2>&1; then
+              echo "  已存在，跳过"
+            else
+              echo "  不存在，开始同步"
+              skopeo copy --retry-times=3 \
+                docker://${src} \
+                docker://${dst}
+            fi
           done < images.txt
