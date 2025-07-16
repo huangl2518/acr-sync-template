@@ -1,2 +1,2 @@
-kuberay/operator:v1.3.0
-rayproject/ray-ml:2.32.0-gpu
+bitnami/kuberay-operator:1.3.0
+rayproject/ray-ml:nightly-py39-cpu
