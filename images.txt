@@ -2,3 +2,4 @@ bitnami/kuberay-operator:1.3.0
 rayproject/ray-ml:nightly-py39-cpu
 nginx:1.29-alpine
 neo4j:5.26.15
+library/ubuntu:22.04
