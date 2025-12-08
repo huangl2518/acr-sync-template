@@ -4,3 +4,4 @@ nginx:1.29-alpine
 neo4j:5.26.15
 library/ubuntu:22.04
 polardbx/polardb-x:latest
+openjdk:8u342-jre-slim
