@@ -7,3 +7,4 @@ polardbx/polardb-x:latest
 openjdk:8u342-jre-slim
 mysql:8.0
 redis/redis-stack:7.2.0-v19-x86_64
+docker.stirlingpdf.com/stirlingtools/stirling-pdf
