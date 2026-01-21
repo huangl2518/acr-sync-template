@@ -8,3 +8,7 @@ openjdk:8u342-jre-slim
 mysql:8.0
 redis/redis-stack:7.2.0-v19-x86_64
 stirlingtools/stirling-pdf:latest
+lmsysorg/sglang:dev-x86
+lmsysorg/sglang:nightly-dev-20260121-1e309030
+vllm/vllm-openai:nightly-x86_64
+vllm/vllm-openai:cu130-nightly-x86_64
