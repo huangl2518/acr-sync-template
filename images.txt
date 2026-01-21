@@ -12,3 +12,4 @@ lmsysorg/sglang:dev-x86
 lmsysorg/sglang:nightly-dev-20260121-1e309030
 vllm/vllm-openai:nightly-x86_64
 vllm/vllm-openai:cu130-nightly-x86_64
+xprobe/xinference:nightly-main
